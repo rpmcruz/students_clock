@@ -1,5 +1,6 @@
 import argparse
 parser = argparse.ArgumentParser()
+parser.add_argument('current')
 parser.add_argument('next')
 args = parser.parse_args()
 
@@ -19,10 +20,12 @@ width, height = info.current_w, info.current_h
 screen = pygame.display.set_mode((width, height), pygame.NOFRAME)
 
 pygame.font.init()
+myfont = pygame.font.SysFont('Comic Sans MS', 60)
+current = myfont.render(args.current, False, 'blue')
 myfont = pygame.font.SysFont('Comic Sans MS', 120)
 questions = [myfont.render(q, False, 'black') for q in questions]
 if args.next:
-    myfont = pygame.font.SysFont('Comic Sans MS', 80)
+    myfont = pygame.font.SysFont('Comic Sans MS', 40)
     next = myfont.render('Depois: ' + args.next, False, (80, 80, 80))
 else:
     next = None
@@ -46,10 +49,11 @@ while time > 0:
     for i, q in enumerate(questions):
         screen.blit(q, (width//2 - questions[0].get_width()//2, height//2 - len(questions)*questions[0].get_height()//2 + i*questions[0].get_height()))
     if next:
-        screen.blit(next, (80, height - next.get_height()*2))
+        screen.blit(next, (80, height - next.get_height() - 80))
 
     time_str = myfont.render(str_time(time), False, 'blue')
-    screen.blit(time_str, (width//2 - time_str.get_width()//2, 120))
+    screen.blit(time_str, (width//2 - time_str.get_width()//2, 160))
+    screen.blit(current, (width//2 - current.get_width()//2, 80))
     pygame.display.flip()
     pygame.time.wait(1000)
     time -= 1

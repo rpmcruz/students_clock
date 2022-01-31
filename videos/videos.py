@@ -11,7 +11,7 @@ students = yaml.safe_load(open('videos.yaml'))
 students = sorted(students, key=lambda x: unidecode(x['name']))
 
 for i in range(args.start, len(students)):
-    print(f'***************** {i}/{len(students)} *****************')
+    print(f'***************** {i+1}/{len(students)} *****************')
     student = students[i]
     os.system(f"python3 video-title.py \"{student['title']}\" \"{student['name']}\"")
     os.system(f"vlc -f videos/{student['nmec']}.mp4 vlc://quit")

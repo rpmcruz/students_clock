@@ -8,7 +8,7 @@ import yaml
 import os
 
 students = yaml.safe_load(open('videos.yaml'))
-students = sorted(students, key=lambda x: unidecode(x['name']))
+students = sorted(students, key=lambda x: unidecode(x['name']).lower())
 
 for i in range(args.start, len(students)):
     print(f'***************** {i+1}/{len(students)} *****************')
